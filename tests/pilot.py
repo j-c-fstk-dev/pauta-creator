@@ -45,6 +45,6 @@ with sync_playwright() as pw:
  for page in ['Hoje','Campanhas','Agenda','Cadastros','Financeiro']:
   p.get_by_role('link',name=page,exact=True).first.click()
   p.get_by_role('navigation').locator('[aria-current="page"]').filter(has_text=page).wait_for()
-  assert p.evaluate('document.documentElement.scrollWidth <= innerWidth'),page
+  assert p.evaluate('document.documentElement.scrollWidth <= innerWidth'), (page, p.evaluate("({width:innerWidth,scroll:document.documentElement.scrollWidth,elements:[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>[e.tagName,e.className,e.getBoundingClientRect().right])})"))
  assert not errors,errors
  print('OK: demonstração isolada, cadastro, vínculos, entrega, revisão de estado, recebimento parcial, limite de baixa, persistência e 5 telas a 360 px.')
