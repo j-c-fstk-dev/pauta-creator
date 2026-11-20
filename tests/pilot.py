@@ -39,11 +39,12 @@ with sync_playwright() as pw:
  p.locator('[name=stage]').select_option('Concluída')
  p.get_by_role('button',name='Salvar').click()
  p.get_by_role('link',name='Hoje',exact=True).click()
- assert p.get_by_text('Sua pauta está livre',exact=False).is_visible()
+ p.get_by_text('Sua pauta está livre',exact=False).wait_for()
  p.set_viewport_size({'width':360,'height':800})
  p.select_option('#space','demo')
  for page in ['Hoje','Campanhas','Agenda','Cadastros','Financeiro']:
   p.get_by_role('link',name=page,exact=True).first.click()
+  p.get_by_role('navigation').locator('[aria-current="page"]').filter(has_text=page).wait_for()
   assert p.evaluate('document.documentElement.scrollWidth <= innerWidth'),page
  assert not errors,errors
  print('OK: demonstração isolada, cadastro, vínculos, entrega, revisão de estado, recebimento parcial, limite de baixa, persistência e 5 telas a 360 px.')
