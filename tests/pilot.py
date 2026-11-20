@@ -8,7 +8,14 @@ with sync_playwright() as pw:
  assert p.get_by_role('heading',name='Pauta do dia').is_visible()
  assert p.get_by_text('Enviar primeiro corte do Reel').count()==2
  p.select_option('#space','personal')
- p.get_by_role('link',name='Cadastros').click()
+ toggle=p.get_by_role('button',name='Menu',exact=True)
+ toggle.focus()
+ p.keyboard.press('Enter')
+ assert toggle.get_attribute('aria-expanded')=='false'
+ p.reload()
+ assert not p.get_by_role('navigation').is_visible()
+ toggle.click()
+ p.get_by_role('link',name='Contas e plataformas').click()
  def fill(button,values):
   p.get_by_role('button',name=button,exact=True).click()
   for k,v in values.items(): p.locator(f'[name="{k}"]').fill(v)
@@ -42,9 +49,15 @@ with sync_playwright() as pw:
  p.get_by_text('Sua pauta está livre',exact=False).wait_for()
  p.set_viewport_size({'width':360,'height':800})
  p.select_option('#space','demo')
- for page in ['Hoje','Campanhas','Agenda','Cadastros','Financeiro']:
+ toggle.click()
+ p.keyboard.press('Escape')
+ p.locator('#drawer').wait_for(state='hidden')
+ assert toggle.evaluate('(el) => document.activeElement === el')
+ for page in ['Hoje','Campanhas','Agenda','Contas e plataformas','Financeiro']:
+  toggle.click()
   p.get_by_role('link',name=page,exact=True).first.click()
-  p.get_by_role('navigation').locator('[aria-current="page"]').filter(has_text=page).wait_for()
+  p.locator('#drawer').wait_for(state='hidden')
+  p.wait_for_function("(page) => document.querySelector('#sidebar [aria-current=page]')?.textContent === page",arg=page)
   assert p.evaluate('document.documentElement.scrollWidth <= innerWidth'), (page, p.evaluate("({width:innerWidth,scroll:document.documentElement.scrollWidth,elements:[...document.querySelectorAll('body *')].filter(e=>e.getBoundingClientRect().right>innerWidth).map(e=>[e.tagName,e.className,e.getBoundingClientRect().right])})"))
  assert not errors,errors
  print('OK: demonstração isolada, cadastro, vínculos, entrega, revisão de estado, recebimento parcial, limite de baixa, persistência e 5 telas a 360 px.')

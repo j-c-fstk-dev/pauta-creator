@@ -111,25 +111,30 @@ header {
   border-radius: 6px;
   padding: 8px;
 }
-nav {
-  display: flex;
-  gap: 28px;
-  overflow: auto;
-  border-bottom: 1px solid var(--line);
-  scrollbar-width: thin;
-}
-nav a {
-  white-space: nowrap;
-  text-decoration: none;
-  padding: 16px 1px 13px;
-  color: var(--muted);
-  font-weight: 650;
-  font-size: 14px;
-  border-bottom: 3px solid transparent;
-}
-nav a[aria-current] {
-  border-color: #cf653a;
-  color: var(--ink);
+/* Application navigation */
+.mast-start { display: flex; align-items: center; gap: 18px; }
+#menu-toggle { color: inherit; background: transparent; border-color: #668176; font-size: 14px; }
+.layout { display: flex; max-width: 1480px; margin-inline: auto; }
+.content { min-width: 0; flex: 1; width: 100%; padding-inline: clamp(18px, 4vw, 68px); }
+#sidebar-slot { flex: 0 0 228px; background: #ecefe6; border-right: 1px solid var(--line); }
+#sidebar { position: sticky; top: 0; max-height: 100dvh; overflow-y: auto; padding: 26px 14px; }
+.menu-group + .menu-group { margin-top: 24px; }
+.menu-group h2 { font: 700 12px/1.5 system-ui,sans-serif; color: var(--muted); letter-spacing: .06em; text-transform: uppercase; margin: 0 10px 6px; }
+.menu-group a { display: flex; align-items: center; gap: 10px; min-height: 44px; padding: 9px 10px; border-radius: 6px; text-decoration: none; font-weight: 550; font-size: 15px; }
+.menu-group svg { width: 20px; height: 20px; flex: none; fill: none; stroke: currentColor; stroke-width: 1.5; stroke-linejoin: round; }
+.menu-group a:hover { background: #dee5d9; }
+.menu-group a[aria-current] { background: var(--green); color: white; font-weight: 700; }
+#drawer-close { display: none; }
+#drawer { margin: 0; padding: 0; width: min(295px,85vw); height: 100dvh; max-height: none; border: 0; border-radius: 0; background: #ecefe6; }
+#drawer #drawer-close { display: block; margin: 0 0 22px auto; }
+body:has(#drawer[open]) { overflow: hidden; }
+@media (max-width: 760px) {
+  .mast-start { gap: 7px; }
+  #menu-toggle { padding: 8px; }
+  .mast .brand { font-size: 18px; gap: 2px; }
+  .mast .brand img { width: 24px; }
+  .mast .brand span { margin-left: 0; }
+  .mast .space select { font-size: 12px; }
 }
 main {
   min-height: 63vh;
@@ -412,9 +417,6 @@ footer {
   }
   .space label {
     display: none;
-  }
-  nav {
-    gap: 20px;
   }
   .head {
     margin: 23px 0 18px;
