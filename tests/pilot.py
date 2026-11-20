@@ -1,6 +1,6 @@
 from playwright.sync_api import sync_playwright
 with sync_playwright() as pw:
- b=pw.chromium.launch()
+ b=pw.chromium.launch(channel='chrome')
  p=b.new_page(viewport={'width':1280,'height':850})
  errors=[]
  p.on('pageerror',lambda e:errors.append(str(e)))

@@ -11,7 +11,6 @@ jobs:
         with:
           python-version: "3.12"
       - run: pip install playwright==1.55.0
-      - run: python -m playwright install --with-deps chromium
       - run: |
           python -m http.server 8173 --directory public &
           python tests/pilot.py
