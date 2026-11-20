@@ -1,3 +1,4 @@
+import "./navigation.js";
 const $ = (s) => document.querySelector(s);
 const esc = (v) =>
   String(v ?? "").replace(
@@ -311,12 +312,10 @@ function render() {
   const [page = "hoje", id] = route();
   const active =
     page === "campanha" ? "campanhas" : pages[page] ? page : "hoje";
-  $("nav").innerHTML = Object.entries(pages)
-    .map(
-      ([key, label]) =>
-        `<a href="#${key}" ${key === active ? 'aria-current="page"' : ""}>${label}</a>`,
-    )
-    .join("");
+  for (const link of document.querySelectorAll("#sidebar nav a")) {
+    if (link.hash === "#" + active) link.setAttribute("aria-current", "page");
+    else link.removeAttribute("aria-current");
+  }
   $("#main").innerHTML =
     page === "campanha" ? detail(find("campaigns", id)) : workspace(active);
   document.title =
@@ -436,8 +435,8 @@ function form(type, id) {
     (id ? "Editar " : "Adicionar ") + names[type];
   $("#fields").innerHTML = fields;
   $(".error").textContent = "";
-  $("dialog").setAttribute("aria-labelledby", "dialog-title");
-  $("dialog").showModal();
+  $("#edit-dialog").setAttribute("aria-labelledby", "dialog-title");
+  $("#edit-dialog").showModal();
 }
 function save(event) {
   event.preventDefault();
@@ -485,7 +484,7 @@ function save(event) {
     localStorage.setItem(key(space), encoded);
     data = next;
     raw = encoded;
-    $("dialog").close();
+    $("#edit-dialog").close();
     if (type === "campaign" && !id) location.hash = "campanha/" + item.id;
     render();
     $("#message").textContent = "Salvo neste navegador.";
@@ -505,7 +504,7 @@ document.addEventListener("change", (e) => {
   }
 });
 $("#editor").addEventListener("submit", save);
-$("#close").onclick = () => $("dialog").close();
+$("#close").onclick = () => $("#edit-dialog").close();
 $("#space").onchange = (e) => {
   space = e.target.value;
   localStorage.setItem("pauta-space", space);

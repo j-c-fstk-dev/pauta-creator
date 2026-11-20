@@ -13,9 +13,14 @@
     <a class="skip" href="#main">Ir para o conteúdo</a>
     <header>
       <div class="shell mast">
-        <a href="#hoje" class="brand"
+        <div class="mast-start">
+          <button id="menu-toggle" type="button" aria-controls="sidebar" aria-expanded="true">
+            <span aria-hidden="true">☰</span> Menu
+          </button>
+          <a href="#hoje" class="brand"
           ><img src="icon.svg" alt="" />Pauta<span>Creator</span></a
         >
+        </div>
         <div class="space">
           <label for="space">Espaço</label
           ><select id="space">
@@ -25,8 +30,23 @@
         </div>
       </div>
     </header>
-    <div class="shell">
-      <nav aria-label="Navegação principal"></nav>
+    <div class="layout">
+      <div id="sidebar-slot"><aside id="sidebar">
+        <button id="drawer-close" type="button">Fechar menu ×</button>
+        <nav aria-label="Navegação principal"><section class="menu-group"><h2>Rotina</h2>
+<a href="#hoje"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M3 4h14v13H3z M6 8h7 M6 12h4"/></svg>Hoje</a>
+<a href="#agenda"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M3 5h14v12H3z M6 3v4 M14 3v4 M3 9h14"/></svg>Agenda</a>
+</section>
+<section class="menu-group"><h2>Trabalhos</h2>
+<a href="#campanhas"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M2 6h6l2 2h8v9H2z"/></svg>Campanhas</a>
+<a href="#financeiro"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M2 6h16v10H2z M5 10h2 M13 12h2"/></svg>Financeiro</a>
+</section>
+<section class="menu-group"><h2>Estúdio</h2>
+<a href="#cadastros"><svg aria-hidden="true" viewBox="0 0 20 20"><path d="M3 4h14v13H3z M7 4v13 M10 8h4 M10 12h4"/></svg>Contas e plataformas</a>
+</section>
+</nav>
+      </aside></div>
+      <div class="content">
       <main id="main" tabindex="-1"></main>
       <footer>
         <span>Armazenamento local neste navegador</span
@@ -35,7 +55,9 @@
         >
       </footer>
     </div>
-    <dialog>
+    </div>
+    <dialog id="drawer" aria-label="Menu principal"></dialog>
+    <dialog id="edit-dialog">
       <form id="editor">
         <div class="dialog-head">
           <h2 id="dialog-title"></h2>
