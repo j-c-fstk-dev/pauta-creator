@@ -1,0 +1,16 @@
+name: Testar piloto
+on: [push, pull_request]
+permissions:
+  contents: read
+jobs:
+  browser:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - run: pip install playwright==1.55.0
+      - run: |
+          python -m http.server 8173 --directory public &
+          python tests/pilot.py
