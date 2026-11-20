@@ -1,0 +1,51 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#182e2a" />
+    <title>Pauta Creator · Estúdio</title>
+    <link rel="icon" href="icon.svg" />
+    <link rel="stylesheet" href="style.css" />
+    <script type="module" src="app.js"></script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Ir para o conteúdo</a>
+    <header>
+      <div class="shell mast">
+        <a href="#hoje" class="brand"
+          ><img src="icon.svg" alt="" />Pauta<span>Creator</span></a
+        >
+        <div class="space">
+          <label for="space">Espaço</label
+          ><select id="space">
+            <option value="demo">Demonstração</option>
+            <option value="personal">Meu estúdio</option>
+          </select>
+        </div>
+      </div>
+    </header>
+    <div class="shell">
+      <nav aria-label="Navegação principal"></nav>
+      <main id="main" tabindex="-1"></main>
+      <footer>
+        <span>Armazenamento local neste navegador</span
+        ><a href="https://github.com/j-c-fstk-dev/pauta-creator"
+          >Código · AGPL-3.0</a
+        >
+      </footer>
+    </div>
+    <dialog>
+      <form id="editor">
+        <div class="dialog-head">
+          <h2 id="dialog-title"></h2>
+          <button type="button" id="close" aria-label="Fechar">×</button>
+        </div>
+        <div id="fields"></div>
+        <p class="error" role="alert"></p>
+        <button class="primary">Salvar</button>
+      </form>
+    </dialog>
+    <div id="message" role="status" aria-live="polite"></div>
+  </body>
+</html>
