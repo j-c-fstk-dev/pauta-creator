@@ -458,3 +458,9 @@ footer {
   .brand img { width: 28px; }
   .space select { font-size: 13px; padding: 7px 4px; }
 }
+
+@media (max-width: 520px) {
+  .summary { grid-template-columns: 1fr; }
+  .metric, .metric + .metric { padding: 8px 0; display: flex; justify-content: space-between; align-items: baseline; gap: 8px; border-left: 0; }
+  .metric + .metric { border-top: 1px solid var(--line); }
+}
